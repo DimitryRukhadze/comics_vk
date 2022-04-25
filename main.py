@@ -30,7 +30,10 @@ def download_random_comic(comics_folder):
     comic_img = requests.get(rand_comic_img_url)
     comic_img.raise_for_status()
 
-    rand_comic_path = os.path.join(comics_folder, f'{rand_comic_title}{img_extension}')
+    rand_comic_path = os.path.join(
+        comics_folder,
+        f'{rand_comic_title}{img_extension}'
+        )
     with open(rand_comic_path, 'wb') as comic_file:
         comic_file.write(comic_img.content)
 
@@ -83,7 +86,11 @@ if __name__ == '__main__':
     comic_img_path, comic_text = download_random_comic(img_folder)
 
     try:
-        photo_upload_data = make_vk_request('photos.getWallUploadServer', vk_access_token, vk_api_version)
+        photo_upload_data = make_vk_request(
+            'photos.getWallUploadServer',
+            vk_access_token,
+            vk_api_version
+            )
         comic_upload_url = photo_upload_data['response']['upload_url']
 
         upload_server, upload_photo, upload_hash = upload_photo_to_server(
