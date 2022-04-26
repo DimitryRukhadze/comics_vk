@@ -7,14 +7,21 @@ import shutil
 from dotenv import load_dotenv
 
 
-def download_random_comic(comics_folder):
+def get_comic_quantity():
 
     last_comic_url = "https://xkcd.com/info.0.json"
     last_comic_response = requests.get(last_comic_url)
     last_comic_response.raise_for_status()
     last_comic_info = last_comic_response.json()
 
-    rand_comic_num = random.randint(1, last_comic_info['num'])
+    return last_comic_info['num']
+
+
+def download_random_comic(comics_folder):
+
+    comics_quantity = get_comic_quantity()
+
+    rand_comic_num = random.randint(1, comics_quantity)
     rand_comic_data_url = f"https://xkcd.com/{rand_comic_num}/info.0.json"
 
     rand_comic_response = requests.get(rand_comic_data_url)
