@@ -115,14 +115,14 @@ if __name__ == '__main__':
             'photo': upload_photo,
             'hash': upload_hash
         }
-        save_comic_to_post = make_vk_request(
+        comic_to_post = make_vk_request(
             'photos.saveWallPhoto',
             vk_access_token,
             vk_api_version,
             other_request_params=save_params
         )
-        photo_id = save_comic_to_post['response'][0]['id']
-        photo_owner_id = save_comic_to_post['response'][0]['owner_id']
+        photo_id = comic_to_post['response'][0]['id']
+        photo_owner_id = comic_to_post['response'][0]['owner_id']
 
         post_comic_params = {
             'owner_id': f'-{group_id}',
