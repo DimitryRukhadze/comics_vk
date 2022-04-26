@@ -2,6 +2,7 @@ import requests
 import os
 import random
 import shutil
+import logging
 
 
 from dotenv import load_dotenv
@@ -63,7 +64,9 @@ def make_vk_request(vk_api_method, vk_token, vk_api, other_request_params=''):
     decoded_response = response.json()
     if 'error' not in decoded_response:
         return decoded_response
-    print(f'В результате запроса произошла ошибка: {decoded_response["error"]["error_msg"]}')
+    logging.warning(
+        f'В результате запроса произошла ошибка: {decoded_response["error"]["error_msg"]}'
+    )
 
 
 def upload_photo_to_server(upload_server_url, file_path):
@@ -82,6 +85,8 @@ def upload_photo_to_server(upload_server_url, file_path):
 if __name__ == '__main__':
 
     load_dotenv()
+
+    logging.basicConfig(format="%(process)d %(levelname)s %(message)s %(asctime)s")
 
     vk_access_token = os.environ.get('VK_ACCESS_TOKEN')
     vk_api_version = os.environ.get('VK_API_VERSION')
